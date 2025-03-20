@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
@@ -19,12 +19,12 @@ export default function Contact() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -39,9 +39,13 @@ export default function Contact() {
       
       setSuccess(true);
       setFormData({ name: '', email: '', message: '' });
-    } catch (err) {
-      setError('Es gab ein Problem beim Senden deiner Nachricht. Bitte versuche es erneut.');
-      console.error(err);
+    } catch (err: any) {
+      let errorMessage = 'Es gab ein Problem beim Senden deiner Nachricht. Bitte versuche es erneut.';
+      if (err?.message) {
+        errorMessage = err.message;
+      }
+      setError(errorMessage);
+      console.error('Kontaktformular-Fehler:', err);
     } finally {
       setLoading(false);
     }
