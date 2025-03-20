@@ -2,7 +2,7 @@ services:
   - type: web
     name: website-frontend
     env: node
-    buildCommand: npm install && npm run build && npx prisma generate
+    buildCommand: npm install && npm install --silent --save-dev @types/node @types/bcrypt && npx prisma generate && npx prisma db push && npm run db:seed && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV

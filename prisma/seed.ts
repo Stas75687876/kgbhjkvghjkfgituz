@@ -29,6 +29,42 @@ async function main() {
   } else {
     console.log(`Admin-Benutzer existiert bereits: ${adminEmail}`);
   }
+
+  // Beispielprodukte erstellen
+  const productData = [
+    {
+      name: "Natürliche Gesichtscreme",
+      description: "Eine reichhaltige, natürliche Gesichtscreme mit Bio-Inhaltsstoffen.",
+      price: 24.99,
+      imageUrl: "/images/products/gesichtscreme.jpg"
+    },
+    {
+      name: "Entspannendes Badeöl",
+      description: "Ein luxuriöses Badeöl mit ätherischen Ölen für Entspannung.",
+      price: 19.99,
+      imageUrl: "/images/products/badeoel.jpg"
+    },
+    {
+      name: "Beruhigende Gesichtsmaske",
+      description: "Eine beruhigende Maske für sensible Haut.",
+      price: 14.99,
+      imageUrl: "/images/products/gesichtsmaske.jpg"
+    }
+  ];
+
+  // Prüfen, ob bereits Produkte existieren
+  const productCount = await prisma.product.count();
+  
+  if (productCount === 0) {
+    for (const product of productData) {
+      await prisma.product.create({
+        data: product
+      });
+    }
+    console.log(`${productData.length} Beispielprodukte wurden erstellt`);
+  } else {
+    console.log(`Es existieren bereits ${productCount} Produkte in der Datenbank`);
+  }
 }
 
 main()
