@@ -57,11 +57,17 @@ export default function CartPage() {
 
       // Weiterleitung zur Stripe Checkout-Seite
       window.location.href = data.url;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Checkout-Fehler:', error);
+      let errorMessage = "Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+      
+      if (error instanceof Error) {
+        errorMessage = error.message || errorMessage;
+      }
+      
       toast({
         title: "Fehler beim Checkout",
-        description: error.message || "Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
