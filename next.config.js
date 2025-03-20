@@ -13,7 +13,7 @@ const nextConfig = {
   },
 
   // Asset-Präfix für konsistentes Laden von Ressourcen
-  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/' : '',
 
   // TypeScript- und ESLint-Fehler während des Builds ignorieren
   typescript: {
