@@ -29,9 +29,8 @@ const nextConfig = {
   // Powered-By-Header deaktivieren
   poweredByHeader: false,
 
-  // Experimentelle Features für CSS-Optimierung
+  // Experimentelle Features (entfernt optimizeCss, da das critters-Modul fehlt)
   experimental: {
-    optimizeCss: true,
     optimizeServerReact: true,
   },
 };
