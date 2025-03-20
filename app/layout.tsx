@@ -7,8 +7,8 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'MeineWebsite - Professionelles Webdesign & Entwicklung',
-  description: 'Wir erstellen hochwertige Websites mit modernem Design und fortschrittlicher Technologie für Unternehmen und Privatpersonen.',
+  title: 'Meine Website',
+  description: 'Eine beeindruckende Website',
 };
 
 export default function RootLayout({
@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" className="scroll-smooth">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body className={`${inter.className} bg-black text-white`}>
         <NavBar />
         {children}

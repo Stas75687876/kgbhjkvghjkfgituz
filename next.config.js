@@ -20,7 +20,8 @@ const nextConfig = {
   },
 
   // Stellt sicher, dass Assets korrekt geladen werden
-  assetPrefix: './',
+  // assetPrefix muss mit einem Schrägstrich beginnen oder eine absolute URL sein
+  assetPrefix: '/',
   trailingSlash: true,
 }
 
