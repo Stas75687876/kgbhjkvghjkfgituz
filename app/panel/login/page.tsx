@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,12 +15,12 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -41,8 +41,12 @@ export default function LoginPage() {
       }
 
       router.push('/panel/products');
-    } catch (err) {
-      setError(err.message || 'Anmeldung fehlgeschlagen. Bitte versuche es erneut.');
+    } catch (err: unknown) {
+      let errorMessage = 'Anmeldung fehlgeschlagen. Bitte versuche es erneut.';
+      if (err instanceof Error) {
+        errorMessage = err.message || errorMessage;
+      }
+      setError(errorMessage);
       console.error('Login-Fehler:', err);
     } finally {
       setLoading(false);
