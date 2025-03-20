@@ -2,6 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Stripe } from 'stripe';
 import { prisma } from '@/lib/prisma';
 
+// Typdefinitionen für den Warenkorb
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl?: string;
+}
+
+// Typdefinitionen für Produkte
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl?: string | null;
+}
+
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY || '', {
   apiVersion: '2023-10-16',
 });
@@ -13,7 +30,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { items, email } = body;
+    const { items, email } = body as { items: CartItem[], email: string };
 
     if (!items || items.length === 0) {
       return NextResponse.json(
@@ -23,14 +40,14 @@ export async function POST(req: NextRequest) {
     }
 
     // Produkte aus der Datenbank abrufen, um Preismanipulation zu vermeiden
-    const productIds = items.map((item) => item.id);
+    const productIds = items.map((item: CartItem) => item.id);
     const products = await prisma.product.findMany({
       where: {
         id: {
           in: productIds,
         },
       },
-    });
+    }) as Product[];
 
     if (products.length !== productIds.length) {
       return NextResponse.json(
@@ -40,8 +57,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Line items für Stripe erstellen
-    const line_items = items.map((item) => {
-      const product = products.find((p) => p.id === item.id);
+    const line_items = items.map((item: CartItem) => {
+      const product = products.find((p: Product) => p.id === item.id);
       
       return {
         price_data: {
@@ -57,8 +74,8 @@ export async function POST(req: NextRequest) {
     });
 
     // Berechne den Gesamtpreis
-    const totalPrice = items.reduce((total, item) => {
-      const product = products.find((p) => p.id === item.id);
+    const totalPrice = items.reduce((total: number, item: CartItem) => {
+      const product = products.find((p: Product) => p.id === item.id);
       return total + (product?.price || 0) * item.quantity;
     }, 0);
 
@@ -68,7 +85,7 @@ export async function POST(req: NextRequest) {
         email,
         totalPrice,
         products: {
-          connect: productIds.map((id) => ({ id })),
+          connect: productIds.map((id: string) => ({ id })),
         },
       },
     });
