@@ -1,9 +1,9 @@
 services:
   - type: web
     name: website-frontend
-    env: node
-    buildCommand: npm install && npm run build && npx prisma generate
-    startCommand: npm start
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./out
     envVars:
       - key: NODE_ENV
         value: production
@@ -15,6 +15,8 @@ services:
         value: https://website-frontend.onrender.com
       - key: JWT_SECRET
         generateValue: true
+      - key: SKIP_TYPESCRIPT_CHECK
+        value: true
 
 databases:
   - name: website-db

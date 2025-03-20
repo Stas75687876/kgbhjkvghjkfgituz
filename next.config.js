@@ -4,9 +4,10 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['images.unsplash.com', 'example.com'],
+    unoptimized: true,
   },
-  // Aktiviere diese Option, wenn Render Static Build verwenden soll
-  // output: 'export',
+  // Wenn du auf Render.com einen Static Site verwendest, aktiviere diesen Export:
+  output: 'export',
   
   // TypeScript-Fehler ignorieren für erfolgreichen Build
   typescript: {
@@ -17,6 +18,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+
+  // Stellt sicher, dass Assets korrekt geladen werden
+  assetPrefix: './',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig 
