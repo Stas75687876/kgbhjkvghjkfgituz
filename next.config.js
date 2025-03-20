@@ -1,25 +1,39 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Strikte React-Modus für bessere Entwicklung
   reactStrictMode: true,
+
+  // SWC-Minifizierung aktivieren für bessere Performance
   swcMinify: true,
+
+  // Bilder-Konfiguration für externe Domains
   images: {
-    domains: ['images.unsplash.com', 'example.com'],
+    domains: ['cloudflare-ipfs.com', 'loremflickr.com', 'example.com', 'res.cloudinary.com'],
+    unoptimized: true, // Wichtig für Render-Kompatibilität
   },
-  // Deaktiviere den statischen Export, da wir API-Routen verwenden
-  // output: 'export',
-  
-  // TypeScript-Fehler ignorieren für erfolgreichen Build
+
+  // Asset-Präfix für konsistentes Laden von Ressourcen
+  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+
+  // TypeScript- und ESLint-Fehler während des Builds ignorieren
   typescript: {
     ignoreBuildErrors: true,
   },
-  
-  // ESLint-Fehler ignorieren für erfolgreichen Build
   eslint: {
     ignoreDuringBuilds: true,
   },
 
-  // Asset-Prefix für konsistentes Laden der Ressourcen
-  assetPrefix: '/',
-}
+  // Standalone-Ausgabe für besseres Server-Side-Rendering
+  output: 'standalone',
 
-module.exports = nextConfig 
+  // Powered-By-Header deaktivieren
+  poweredByHeader: false,
+
+  // Experimentelle Features für CSS-Optimierung
+  experimental: {
+    optimizeCss: true,
+    optimizeServerReact: true,
+  },
+};
+
+module.exports = nextConfig; 

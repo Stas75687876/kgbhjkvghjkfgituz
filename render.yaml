@@ -1,25 +1,29 @@
 services:
+  # Frontend Next.js Webservice
   - type: web
     name: website-frontend
     env: node
-    buildCommand: npm install && npm install --silent --save-dev @types/node @types/bcrypt && npx prisma generate && npx prisma db push && npm run db:seed && npm run build
+    plan: free
+    buildCommand: npm install && npm run build
     startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NEXT_PUBLIC_APP_URL
+        value: https://creativedesign.onrender.com
+      - key: NEXT_PUBLIC_BASE_URL
+        value: https://creativedesign.onrender.com
       - key: DATABASE_URL
         fromDatabase:
           name: website-db
           property: connectionString
-      - key: NEXT_PUBLIC_APP_URL
-        value: https://website-frontend.onrender.com
-      - key: JWT_SECRET
-        generateValue: true
-      - key: SKIP_TYPESCRIPT_CHECK
-        value: true
+      - key: NEXT_TELEMETRY_DISABLED
+        value: 1
 
 databases:
+  # PostgreSQL Datenbank für die Anwendung
   - name: website-db
-    databaseName: website
-    user: website_admin
-    plan: free 
+    plan: free
+    ipAllowList: [] 

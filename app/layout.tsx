@@ -1,27 +1,20 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Poppins } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import NavBar from '@/components/NavBar';
 import { Toaster } from '@/components/ui/toaster';
 
-// Schriftarten laden
+// Schriftart konfigurieren
 const inter = Inter({ 
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const poppins = Poppins({ 
-  subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
   display: 'swap',
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
-  title: 'Meine Website | Kreatives Webdesign',
-  description: 'Kreative Webdesign-Lösungen für Ihr Unternehmen',
-  keywords: 'webdesign, website entwicklung, responsive design',
+  title: 'Kreative Webdesign Lösungen',
+  description: 'Professionelles Webdesign und digitale Lösungen für Ihr Unternehmen',
 };
 
 export default function RootLayout({
@@ -30,12 +23,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="de" className={`scroll-smooth ${inter.variable} ${poppins.variable}`}>
+    <html lang="de" className="scroll-smooth">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="font-sans bg-neutral-50 text-neutral-900">
+      <body className={inter.className}>
         <NavBar />
         {children}
         <footer className="bg-neutral-900 text-neutral-100 py-12">

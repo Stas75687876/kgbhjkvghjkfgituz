@@ -5,6 +5,21 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    'bg-primary-50', 'bg-primary-100', 'bg-primary-500', 'bg-primary-600', 'bg-primary-700',
+    'bg-secondary-500', 'bg-secondary-600', 'bg-secondary-700',
+    'bg-accent-50', 'bg-accent-500', 'bg-accent-600',
+    'bg-neutral-50', 'bg-neutral-100', 'bg-neutral-700', 'bg-neutral-800', 'bg-neutral-900',
+    'text-primary-400', 'text-primary-500', 'text-primary-600', 
+    'text-secondary-500',
+    'text-accent-400', 'text-accent-500',
+    'text-neutral-300', 'text-neutral-400', 'text-neutral-600', 'text-neutral-700', 'text-neutral-800', 'text-neutral-900',
+    'hover:bg-primary-700', 'hover:bg-secondary-700', 'hover:text-primary-400', 'hover:text-primary-600',
+    'from-primary-50', 'from-primary-400', 'from-primary-600', 'from-primary-700',
+    'to-accent-400', 'to-accent-500', 'to-accent-600', 'to-transparent',
+    'shadow-soft', 'shadow-md', 'shadow-lg', 'shadow-glow',
+    'container-custom', 'section-padding'
+  ],
   theme: {
     extend: {
       colors: {
@@ -63,7 +78,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        heading: ['Poppins', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
